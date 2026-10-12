@@ -19,12 +19,15 @@
 #
 #
 #     干预策略 / Intervention Regimes:
-#     针对职业体力活动 (OPA) 采用“退出范式” (Withdrawal Paradigm):
-#     "0000: Always Low Exposure / 始终轻体力 (Ref)",
-#     "1000: Withdrawal at Wave 2 / 第2波起脱离重体力",
-#     "1100: Withdrawal at Wave 3 / 第3波起脱离重体力",
-#     "1110: Withdrawal at Wave 4 / 第4波起脱离重体力",
-#     "1111: Sustained High Exposure / 持续高暴露"
+#     因为许多参与者在随访期间减少了 OPA，我们将全程维持低 OPA (0000) 与四种代表高 OPA 维持时间逐步延长的干预策略进行比较：
+#     Because many participants decreased OPA during follow-up, we compared sustained low OPA
+#     throughout follow-up (0000) with four alternative regimes representing progressively
+#     longer maintenance of high OPA:
+#     "Sustained low OPA throughout follow-up / 全程维持低 OPA (Ref)",
+#     "High OPA in 2013 only / 仅 2013 年高 OPA",
+#     "High OPA through 2015 / 高 OPA 持续至 2015 年",
+#     "High OPA through 2018 / 高 OPA 持续至 2018 年",
+#     "High OPA throughout all four assessment waves / 四个波次全程高 OPA"
 #
 # [Architecture]:
 #     采用并行计算架构，结合 foreach 多核并发与分离的数据网络映射。
@@ -338,7 +341,7 @@ for (disease in target_diseases) {
                               # ============================================================================
                               # [阶段 1] 主分析构建 / Stage 1: Main Analysis Pipeline
                               # ============================================================================
-                              # OPA 退出范式：0000, 1000, 1100, 1110, 1111 / OPA withdrawal regimes: 0000, 1000, 1100, 1110, 1111
+                              # OPA 持续暴露策略：0000, 1000, 1100, 1110, 1111 / OPA sustained-exposure regimes: 0000, 1000, 1100, 1110, 1111
                               regimes_array_main <- array(dim = c(n_obs, 4, 5))
                               regimes_array_main[, , 1] <- matrix(rep(c(0, 0, 0, 0), each = n_obs), nrow = n_obs)
                               regimes_array_main[, , 2] <- matrix(rep(c(1, 0, 0, 0), each = n_obs), nrow = n_obs)
@@ -495,11 +498,11 @@ for (disease in target_diseases) {
     
     # 构建输出表格 (增加了一列 RD)
     df_tab <- data.frame(
-      `OPA 暴露轨迹 / OPA Trajectory` = c("0000: Always Low Exposure / 始终轻体力 (Ref)",
-                                      "1000: Withdrawal at Wave 2 / 第2波起脱离重体力",
-                                      "1100: Withdrawal at Wave 3 / 第3波起脱离重体力",
-                                      "1110: Withdrawal at Wave 4 / 第4波起脱离重体力",
-                                      "1111: Sustained High Exposure / 持续高暴露"),
+      `OPA 暴露轨迹 / OPA Trajectory` = c("Sustained low OPA throughout follow-up / 全程维持低 OPA (Ref)",
+                                      "High OPA in 2013 only / 仅 2013 年高 OPA",
+                                      "High OPA through 2015 / 高 OPA 持续至 2015 年",
+                                      "High OPA through 2018 / 高 OPA 持续至 2018 年",
+                                      "High OPA throughout all four assessment waves / 四个波次全程高 OPA"),
       `因果相对风险 / Causal Effect RR (95% CI, P)` = c(
         paste0("1.00 (Ref)\n(Risk: ", format_rate(fq["Risk_R1"]), ")"),
         format_ci_p_log(fq["logRR_R2"], fse["logRR_R2"]),
