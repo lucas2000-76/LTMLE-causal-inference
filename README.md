@@ -47,7 +47,7 @@ The `r_analysis/` folder contains the R scripts that estimate causal effects fro
 | File | Purpose |
 |------|---------|
 | `TE_and_ATE_category_new.R` | Main causal-effect analysis. Uses LTMLE/MSM with a SuperLearner ensemble and parallel `foreach` computing to estimate the pooled causal effect of occupational physical activity (OPA) trajectories on CVD and diabetes, under a withdrawal paradigm (`0000/1000/1100/1110/1111`). |
-| `TE_and_ATE_category_new_SA.R` | Main analysis plus post-hoc sensitivity analyses (objective biomarkers, socioeconomic, and mental health & cognitive scenarios). |
+| `TE_and_ATE_category_new_SA.R` | Post-hoc sensitivity analyses only. Re-runs the same main LTMLE/MSM pipeline three times, each time excluding one covariate group (objective biomarkers, socioeconomic, or mental health & cognitive; non-cumulative). It does **not** re-run the plain main analysis. |
 | `EValue_analysis_new.R` | Computes E-values for unmeasured confounding from the pooled LTMLE/MSM results (main + sensitivity scenarios), following VanderWeele & Ding (2017). |
 
 ### R dependencies

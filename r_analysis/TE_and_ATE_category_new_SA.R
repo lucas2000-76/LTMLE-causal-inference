@@ -1,22 +1,22 @@
 # ==============================================================================
-# Script Name: TE_and_ATE_category_new.R (Main effects only; gbounds 0.05/0.95; LTPA dichotomized 0 vs 1-3)
+# Script Name: TE_and_ATE_category_new_SA.R (Post-hoc sensitivity analyses; gbounds 0.05/0.95; LTPA dichotomized 0 vs 1-3)
 # Description:
-#     执行体力活动悖论的“因果推断主效应”分析，自动化合并双疾病结局 (CVD & Diabetes)。
-#     Executes the "main causal effect experiment" for the Physical Activity Paradox,
-#     with automated pooled analyses for two disease outcomes: CVD and Diabetes.
+#     Post-hoc sensitivity analyses for the Physical Activity Paradox study.
+#     本脚本是 TE_and_ATE_category_new.R 的事后敏感性分析版本，不重复运行主分析。
+#     This script is the post-hoc sensitivity-analysis variant of TE_and_ATE_category_new.R;
+#     it does NOT rerun the plain main analysis.
 #
-#     本脚本用于识别和解耦职业体力活动(OPA)、休闲体力活动(LTPA)与慢性疾病风险之间的复杂因果关系。
-#     This script is designed to identify and disentangle the complex causal relationships among occupational physical activity (OPA),
-#     leisure-time physical activity (LTPA), and chronic disease risk.
+#     它复用与主分析完全相同的 LTMLE/MSM 流程、参数、预处理与 OPA 退出范式，
+#     It reuses the exact same LTMLE/MSM pipeline, parameters, preprocessing, and OPA withdrawal regimes as the main analysis.
 #
-#     - 主分析表 (Main Sheets):
-#       保留 OPA 暴露轨迹在四种阈值(T1, T2, T3, T4)下的总体平均因果效应。
-#       时变 LTPA 采用二分类方案：0 = 无 LTPA；原始 1, 2, 3 合并为 1 = 有任何 LTPA，
-#       作为 OPA 之后的时变中介/协变量纳入纵向数据结构。
-#       Main sheets estimate the overall average causal effects of OPA trajectories under four thresholds (T1, T2, T3, T4).
-#       Time-varying LTPA is dichotomized (0 = no LTPA; original 1, 2, 3 combined as 1 = any LTPA)
-#       and adjusted as a post-OPA time-varying covariate/mediator.
+#     唯一区别：在读取每个插补数据集后，删除某一类协变量（非累积），共 3 个情景：
+#     The only difference: after reading each imputed dataset, one covariate group is excluded (non-cumulative), across 3 scenarios:
+#       1) objective biomarkers / 客观生物标志物
+#       2) socioeconomic indicators / 社会经济指标
+#       3) mental health & cognitive measures / 心理健康与认知指标
 #
+#     输出：Main_Pooled_MSM_All_Results_group_SA_<scenario>.xlsx（每个情景一个文件）。
+#     Output: Main_Pooled_MSM_All_Results_group_SA_<scenario>.xlsx (one file per scenario).
 #
 #     干预策略 / Intervention Regimes:
 #     针对职业体力活动 (OPA) 采用“退出范式” (Withdrawal Paradigm):
