@@ -1,0 +1,27 @@
+# R
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Data (do not commit raw/derived datasets)
+*.xlsx
+*.xls
+*.csv
+*.dta
+*.sav
+*.RData
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
